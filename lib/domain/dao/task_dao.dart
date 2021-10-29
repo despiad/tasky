@@ -43,7 +43,13 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
         .getSingle();
   }
 
-  Future<void> insertTask(DBTasksCompanion task) => into(dBTasks).insert(task);
+  Future<void> insertTask(Task task) => into(dBTasks).insert(
+        DBTasksCompanion(
+          name: Value(task.name),
+          date: Value(task.date),
+          isCompleted: Value(task.isCompleted),
+        ),
+      );
 
   Future<void> updateTask(Task task) => update(dBTasks).replace(toDBTask(task));
 
