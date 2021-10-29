@@ -7,5 +7,5 @@ part of 'task_dao.dart';
 // **************************************************************************
 
 mixin _$TaskDaoMixin on DatabaseAccessor<AppDatabase> {
-  $TasksTable get tasks => attachedDatabase.tasks;
+  $DBTasksTable get dBTasks => attachedDatabase.dBTasks;
 }

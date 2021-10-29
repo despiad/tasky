@@ -9,7 +9,7 @@ import 'package:tasky/domain/tables/tasks_table.dart';
 part 'database.g.dart';
 
 @DriftDatabase(
-  tables: [Tasks],
+  tables: [DBTasks],
   daos: [TaskDao]
 )
 class AppDatabase extends _$AppDatabase {

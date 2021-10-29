@@ -7,19 +7,19 @@ part of 'database.dart';
 // **************************************************************************
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
-class Task extends DataClass implements Insertable<Task> {
+class DBTask extends DataClass implements Insertable<DBTask> {
   final int id;
   final String name;
   final DateTime? date;
   final bool isCompleted;
-  Task(
+  DBTask(
       {required this.id,
       required this.name,
       this.date,
       required this.isCompleted});
-  factory Task.fromData(Map<String, dynamic> data, {String? prefix}) {
+  factory DBTask.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    return Task(
+    return DBTask(
       id: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       name: const StringType()
@@ -42,8 +42,8 @@ class Task extends DataClass implements Insertable<Task> {
     return map;
   }
 
-  TasksCompanion toCompanion(bool nullToAbsent) {
-    return TasksCompanion(
+  DBTasksCompanion toCompanion(bool nullToAbsent) {
+    return DBTasksCompanion(
       id: Value(id),
       name: Value(name),
       date: date == null && nullToAbsent ? const Value.absent() : Value(date),
@@ -51,10 +51,10 @@ class Task extends DataClass implements Insertable<Task> {
     );
   }
 
-  factory Task.fromJson(Map<String, dynamic> json,
+  factory DBTask.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Task(
+    return DBTask(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       date: serializer.fromJson<DateTime?>(json['date']),
@@ -72,8 +72,8 @@ class Task extends DataClass implements Insertable<Task> {
     };
   }
 
-  Task copyWith({int? id, String? name, DateTime? date, bool? isCompleted}) =>
-      Task(
+  DBTask copyWith({int? id, String? name, DateTime? date, bool? isCompleted}) =>
+      DBTask(
         id: id ?? this.id,
         name: name ?? this.name,
         date: date ?? this.date,
@@ -81,7 +81,7 @@ class Task extends DataClass implements Insertable<Task> {
       );
   @override
   String toString() {
-    return (StringBuffer('Task(')
+    return (StringBuffer('DBTask(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('date: $date, ')
@@ -95,31 +95,31 @@ class Task extends DataClass implements Insertable<Task> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Task &&
+      (other is DBTask &&
           other.id == this.id &&
           other.name == this.name &&
           other.date == this.date &&
           other.isCompleted == this.isCompleted);
 }
 
-class TasksCompanion extends UpdateCompanion<Task> {
+class DBTasksCompanion extends UpdateCompanion<DBTask> {
   final Value<int> id;
   final Value<String> name;
   final Value<DateTime?> date;
   final Value<bool> isCompleted;
-  const TasksCompanion({
+  const DBTasksCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.date = const Value.absent(),
     this.isCompleted = const Value.absent(),
   });
-  TasksCompanion.insert({
+  DBTasksCompanion.insert({
     this.id = const Value.absent(),
     required String name,
     this.date = const Value.absent(),
     this.isCompleted = const Value.absent(),
   }) : name = Value(name);
-  static Insertable<Task> custom({
+  static Insertable<DBTask> custom({
     Expression<int>? id,
     Expression<String>? name,
     Expression<DateTime?>? date,
@@ -133,12 +133,12 @@ class TasksCompanion extends UpdateCompanion<Task> {
     });
   }
 
-  TasksCompanion copyWith(
+  DBTasksCompanion copyWith(
       {Value<int>? id,
       Value<String>? name,
       Value<DateTime?>? date,
       Value<bool>? isCompleted}) {
-    return TasksCompanion(
+    return DBTasksCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       date: date ?? this.date,
@@ -166,7 +166,7 @@ class TasksCompanion extends UpdateCompanion<Task> {
 
   @override
   String toString() {
-    return (StringBuffer('TasksCompanion(')
+    return (StringBuffer('DBTasksCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('date: $date, ')
@@ -176,10 +176,10 @@ class TasksCompanion extends UpdateCompanion<Task> {
   }
 }
 
-class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
+class $DBTasksTable extends DBTasks with TableInfo<$DBTasksTable, DBTask> {
   final GeneratedDatabase _db;
   final String? _alias;
-  $TasksTable(this._db, [this._alias]);
+  $DBTasksTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
       'id', aliasedName, false,
@@ -208,11 +208,11 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
   @override
   List<GeneratedColumn> get $columns => [id, name, date, isCompleted];
   @override
-  String get aliasedName => _alias ?? 'tasks';
+  String get aliasedName => _alias ?? 'd_b_tasks';
   @override
-  String get actualTableName => 'tasks';
+  String get actualTableName => 'd_b_tasks';
   @override
-  VerificationContext validateIntegrity(Insertable<Task> instance,
+  VerificationContext validateIntegrity(Insertable<DBTask> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -241,23 +241,23 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Task map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Task.fromData(data,
+  DBTask map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return DBTask.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
-  $TasksTable createAlias(String alias) {
-    return $TasksTable(_db, alias);
+  $DBTasksTable createAlias(String alias) {
+    return $DBTasksTable(_db, alias);
   }
 }
 
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
-  late final $TasksTable tasks = $TasksTable(this);
+  late final $DBTasksTable dBTasks = $DBTasksTable(this);
   late final TaskDao taskDao = TaskDao(this as AppDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [tasks];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [dBTasks];
 }
