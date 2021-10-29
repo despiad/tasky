@@ -1,10 +1,10 @@
-import 'package:moor_flutter/moor_flutter.dart';
+import 'package:drift/drift.dart';
 import 'package:tasky/domain/tables/tasks_table.dart';
 import 'package:tasky/infrastructure/database/database.dart';
 
 part 'task_dao.g.dart';
 
-@UseDao(tables: [Tasks])
+@DriftAccessor(tables: [Tasks])
 class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
   final AppDatabase db;
 

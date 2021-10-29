@@ -17,8 +17,7 @@ class Task extends DataClass implements Insertable<Task> {
       required this.name,
       this.date,
       required this.isCompleted});
-  factory Task.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String? prefix}) {
+  factory Task.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Task(
       id: const IntType()
@@ -54,7 +53,7 @@ class Task extends DataClass implements Insertable<Task> {
 
   factory Task.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return Task(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
@@ -64,7 +63,7 @@ class Task extends DataClass implements Insertable<Task> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
@@ -243,7 +242,7 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Task map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Task.fromData(data, _db,
+    return Task.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
