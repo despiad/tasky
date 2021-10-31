@@ -25,14 +25,14 @@ import 'guards/edit_screen_guard.dart';
               page: TaskDetailsScreen,
             ),
             AutoRoute(
-              name: 'edit',
+              name: 'editTask',
               path: ':taskId/edit',
               page: CreateTaskScreen,
               guards: [EditScreenGuard],
               fullscreenDialog: true,
             ),
             AutoRoute(
-              name: 'create',
+              name: 'createTask',
               path: 'create',
               page: CreateTaskScreen,
               fullscreenDialog: true,

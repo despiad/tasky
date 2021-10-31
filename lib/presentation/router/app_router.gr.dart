@@ -42,8 +42,10 @@ class AppRouter extends _i2.RootStackRouter {
           routeData: routeData, child: const _i3.SettingsScreen());
     },
     TaskListRoute.name: (routeData) {
+      final args = routeData.argsAs<TaskListRouteArgs>(
+          orElse: () => const TaskListRouteArgs());
       return _i2.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i4.TaskListScreen());
+          routeData: routeData, child: _i4.TaskListScreen(key: args.key));
     },
     Details.name: (routeData) {
       final pathParams = routeData.pathParams;
@@ -53,20 +55,20 @@ class AppRouter extends _i2.RootStackRouter {
           routeData: routeData,
           child: _i5.TaskDetailsScreen(taskId: args.taskId, key: args.key));
     },
-    Edit.name: (routeData) {
+    EditTask.name: (routeData) {
       final pathParams = routeData.pathParams;
-      final args = routeData.argsAs<EditArgs>(
-          orElse: () => EditArgs(taskId: pathParams.optInt('taskId')));
+      final args = routeData.argsAs<EditTaskArgs>(
+          orElse: () => EditTaskArgs(taskId: pathParams.optInt('taskId')));
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i6.CreateTaskScreen(
               taskId: args.taskId, task: args.task, key: args.key),
           fullscreenDialog: true);
     },
-    Create.name: (routeData) {
+    CreateTask.name: (routeData) {
       final pathParams = routeData.pathParams;
-      final args = routeData.argsAs<CreateArgs>(
-          orElse: () => CreateArgs(taskId: pathParams.optInt('taskId')));
+      final args = routeData.argsAs<CreateTaskArgs>(
+          orElse: () => CreateTaskArgs(taskId: pathParams.optInt('taskId')));
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i6.CreateTaskScreen(
@@ -86,11 +88,11 @@ class AppRouter extends _i2.RootStackRouter {
                     path: '', parent: TasksRouter.name),
                 _i2.RouteConfig(Details.name,
                     path: ':taskId', parent: TasksRouter.name),
-                _i2.RouteConfig(Edit.name,
+                _i2.RouteConfig(EditTask.name,
                     path: ':taskId/edit',
                     parent: TasksRouter.name,
                     guards: [editScreenGuard]),
-                _i2.RouteConfig(Create.name,
+                _i2.RouteConfig(CreateTask.name,
                     path: 'create', parent: TasksRouter.name),
                 _i2.RouteConfig('*#redirect',
                     path: '*',
@@ -128,10 +130,17 @@ class SettingsRouter extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for [_i4.TaskListScreen]
-class TaskListRoute extends _i2.PageRouteInfo<void> {
-  const TaskListRoute() : super(name, path: '');
+class TaskListRoute extends _i2.PageRouteInfo<TaskListRouteArgs> {
+  TaskListRoute({_i7.Key? key})
+      : super(name, path: '', args: TaskListRouteArgs(key: key));
 
   static const String name = 'TaskListRoute';
+}
+
+class TaskListRouteArgs {
+  const TaskListRouteArgs({this.key});
+
+  final _i7.Key? key;
 }
 
 /// generated route for [_i5.TaskDetailsScreen]
@@ -154,18 +163,18 @@ class DetailsArgs {
 }
 
 /// generated route for [_i6.CreateTaskScreen]
-class Edit extends _i2.PageRouteInfo<EditArgs> {
-  Edit({int? taskId, _i9.Task? task, _i7.Key? key})
+class EditTask extends _i2.PageRouteInfo<EditTaskArgs> {
+  EditTask({int? taskId, _i9.Task? task, _i7.Key? key})
       : super(name,
             path: ':taskId/edit',
-            args: EditArgs(taskId: taskId, task: task, key: key),
+            args: EditTaskArgs(taskId: taskId, task: task, key: key),
             rawPathParams: {'taskId': taskId});
 
-  static const String name = 'Edit';
+  static const String name = 'EditTask';
 }
 
-class EditArgs {
-  const EditArgs({this.taskId, this.task, this.key});
+class EditTaskArgs {
+  const EditTaskArgs({this.taskId, this.task, this.key});
 
   final int? taskId;
 
@@ -175,17 +184,17 @@ class EditArgs {
 }
 
 /// generated route for [_i6.CreateTaskScreen]
-class Create extends _i2.PageRouteInfo<CreateArgs> {
-  Create({int? taskId, _i9.Task? task, _i7.Key? key})
+class CreateTask extends _i2.PageRouteInfo<CreateTaskArgs> {
+  CreateTask({int? taskId, _i9.Task? task, _i7.Key? key})
       : super(name,
             path: 'create',
-            args: CreateArgs(taskId: taskId, task: task, key: key));
+            args: CreateTaskArgs(taskId: taskId, task: task, key: key));
 
-  static const String name = 'Create';
+  static const String name = 'CreateTask';
 }
 
-class CreateArgs {
-  const CreateArgs({this.taskId, this.task, this.key});
+class CreateTaskArgs {
+  const CreateTaskArgs({this.taskId, this.task, this.key});
 
   final int? taskId;
 
