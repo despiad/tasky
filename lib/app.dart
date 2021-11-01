@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasky/presentation/router/app_router.gr.dart';
-import 'package:tasky/presentation/router/guards/edit_screen_guard.dart';
+import 'package:tasky/router/app_router.gr.dart';
+import 'package:tasky/router/guards/edit_screen_guard.dart';
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);

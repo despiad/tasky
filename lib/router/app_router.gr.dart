@@ -11,12 +11,12 @@
 import 'package:auto_route/auto_route.dart' as _i2;
 import 'package:flutter/material.dart' as _i7;
 
-import '../../domain/models/task.dart' as _i9;
-import '../create_task/create_task_screen.dart' as _i6;
-import '../home/home_screen.dart' as _i1;
-import '../settings/settings_screen.dart' as _i3;
-import '../task_details/task_details_screen.dart' as _i5;
-import '../task_list/task_list_screen.dart' as _i4;
+import '../domain/models/task.dart' as _i9;
+import '../presentation/create_task/create_task_screen.dart' as _i6;
+import '../presentation/home/home_screen.dart' as _i1;
+import '../presentation/settings/settings_screen.dart' as _i3;
+import '../presentation/task_details/task_details_screen.dart' as _i5;
+import '../presentation/task_list/task_list_screen.dart' as _i4;
 import 'guards/edit_screen_guard.dart' as _i8;
 
 class AppRouter extends _i2.RootStackRouter {

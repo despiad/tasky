@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/injection_container.dart';
-import 'package:tasky/presentation/router/app_router.gr.dart';
+import 'package:tasky/router/app_router.gr.dart';
 import 'package:tasky/presentation/task_list/cubit/tasks_cubit.dart';
 
 class TaskListScreen extends StatelessWidget {
