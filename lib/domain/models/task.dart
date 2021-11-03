@@ -1,5 +1,3 @@
-import 'package:tasky/infrastructure/database/database.dart';
-
 class Task {
   final int id;
   final String name;
@@ -7,9 +5,18 @@ class Task {
   final bool isCompleted;
 
   Task({
-    required this.id,
+    this.id = 1,
     required this.name,
-    required this.date,
-    required this.isCompleted,
+    this.date,
+    this.isCompleted = false,
   });
+
+  Task copyWith({int? id, String? name, DateTime? date, bool? isCompleted}) {
+    return Task(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      date: date ?? this.date,
+      isCompleted: isCompleted ?? this.isCompleted,
+    );
+  }
 }

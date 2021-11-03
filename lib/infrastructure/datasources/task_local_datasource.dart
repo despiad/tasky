@@ -54,6 +54,6 @@ class TaskLocalDataSourceImpl implements TaskLocalDatasource {
 
   @override
   Stream<List<Task>> watchCompletedTasks() {
-    return _appDatabase.taskDao.watchCompletedTasks();
+    return _appDatabase.taskDao.watchUncompletedTasks();
   }
 }

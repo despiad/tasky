@@ -14,7 +14,7 @@ class TasksCubit extends Cubit<TasksState> {
 
   TasksCubit(this._taskRepository) : super(TasksLoading());
 
-  void toggleCompleted(bool showCompleted) {
+  void toggleCompleted({required bool showCompleted}) {
     if (showCompleted) {
       _tasksSubscr = _taskRepository.watchCompletedTasks().listen((tasks) {
         if (tasks.isEmpty) {
@@ -32,6 +32,14 @@ class TasksCubit extends Cubit<TasksState> {
         }
       });
     }
+  }
+
+  void deleteTask(int id) {
+    _taskRepository.deleteTask(id);
+  }
+
+  void updateTask(Task task) {
+    _taskRepository.updateTask(task);
   }
 
   @override

@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:tasky/infrastructure/database/database.dart';
 import 'package:tasky/infrastructure/datasources/task_local_datasource.dart';
 import 'package:tasky/infrastructure/repositories/task_repository.dart';
+import 'package:tasky/presentation/create_task/cubit/create_task_cubit.dart';
 import 'package:tasky/presentation/task_list/cubit/tasks_cubit.dart';
 
 final sl = GetIt.instance;
@@ -19,4 +20,5 @@ void setup() {
 
   // Blocs/Cubits
   sl.registerFactory<TasksCubit>(() => TasksCubit(sl()));
+  sl.registerFactory<CreateTaskCubit>(() => CreateTaskCubit(sl()));
 }

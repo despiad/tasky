@@ -18,23 +18,27 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
   Stream<List<Task>> watchAllTasks() {
     return (select(dBTasks)
           ..orderBy([
-            (t) => OrderingTerm(expression: t.date, mode: OrderingMode.desc),
+            (t) => OrderingTerm(
+                expression: t.date.isNull(), mode: OrderingMode.asc),
+            (t) => OrderingTerm(expression: t.isCompleted, mode: OrderingMode.asc),
+            (t) => OrderingTerm(expression: t.date, mode: OrderingMode.asc),
             (t) => OrderingTerm(expression: t.name),
           ]))
         .watch()
         .map((dbList) => toListTasks(dbList));
   }
 
-  Stream<List<Task>> watchCompletedTasks() {
+  Stream<List<Task>> watchUncompletedTasks() {
     return (select(dBTasks)
           ..orderBy([
-            (t) => OrderingTerm(expression: t.date, mode: OrderingMode.desc),
+            (t) => OrderingTerm(
+                expression: t.date.isNull(), mode: OrderingMode.asc),
+            (t) => OrderingTerm(expression: t.date, mode: OrderingMode.asc),
             (t) => OrderingTerm(expression: t.name),
           ])
-          ..where((t) => t.isCompleted.equals(true)))
+          ..where((t) => t.isCompleted.equals(false)))
         .watch()
         .map((dbList) => toListTasks(dbList));
-    ;
   }
 
   Future<Task> getTaskById(int taskId) {
@@ -47,7 +51,6 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
         DBTasksCompanion(
           name: Value(task.name),
           date: Value(task.date),
-          isCompleted: Value(task.isCompleted),
         ),
       );
 
