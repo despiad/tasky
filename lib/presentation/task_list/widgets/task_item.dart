@@ -5,6 +5,7 @@ import 'package:tasky/domain/models/task.dart';
 class TaskItem extends StatelessWidget {
   final Task task;
   final VoidCallback onDelete;
+  final VoidCallback onLongPress;
   final Function(bool?) onCheckboxChanged;
 
   const TaskItem({
@@ -12,6 +13,7 @@ class TaskItem extends StatelessWidget {
     required this.task,
     required this.onDelete,
     required this.onCheckboxChanged,
+    required this.onLongPress,
   }) : super(key: key);
 
   @override
@@ -34,6 +36,7 @@ class TaskItem extends StatelessWidget {
           onChanged: onCheckboxChanged,
           value: task.isCompleted,
         ),
+        onLongPress: onLongPress,
       ),
     );
   }

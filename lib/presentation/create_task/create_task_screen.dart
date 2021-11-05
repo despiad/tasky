@@ -129,10 +129,17 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            context.read<CreateTaskCubit>().saveNewTask(
-                                  _nameController.text,
-                                  _pickedDate.value,
-                                );
+                            task != null
+                                ? context.read<CreateTaskCubit>().updateTask(
+                                      task!.copyWith(
+                                        name: _nameController.text,
+                                        date: _pickedDate.value,
+                                      ),
+                                    )
+                                : context.read<CreateTaskCubit>().saveNewTask(
+                                      _nameController.text,
+                                      _pickedDate.value,
+                                    );
                           }
                         },
                         child: const Text('Save'),

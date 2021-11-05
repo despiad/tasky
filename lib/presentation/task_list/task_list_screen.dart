@@ -82,6 +82,12 @@ class TaskListScreen extends StatelessWidget {
                           final updatedTask = task.copyWith(isCompleted: value);
                           context.read<TasksCubit>().updateTask(updatedTask);
                         },
+                        onLongPress: () {
+                          context.router.push(EditTask(
+                            taskId: task.id,
+                            task: task,
+                          ));
+                        },
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {

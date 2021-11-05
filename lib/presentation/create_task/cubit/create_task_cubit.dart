@@ -24,5 +24,14 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
     }
   }
 
-  void updateTask() {}
+  void updateTask(Task task) {
+    emit(CreateTaskLoading());
+    try {
+
+      _taskRepository.updateTask(task);
+      emit(CreateTaskSuccess());
+    } catch (e) {
+      emit(CreateTaskError(e.toString()));
+    }
+  }
 }
