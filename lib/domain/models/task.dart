@@ -5,7 +5,7 @@ class Task {
   final bool isCompleted;
 
   Task({
-    this.id = 1,
+    this.id = -1,
     required this.name,
     this.date,
     this.isCompleted = false,
@@ -18,5 +18,10 @@ class Task {
       date: date ?? this.date,
       isCompleted: isCompleted ?? this.isCompleted,
     );
+  }
+
+  @override
+  String toString() {
+    return 'Task{id: $id, name: $name, date: $date, isCompleted: $isCompleted}';
   }
 }

@@ -6,7 +6,7 @@ abstract class TaskRepository {
 
   Stream<List<Task>> watchAllTasks();
 
-  Stream<List<Task>> watchCompletedTasks();
+  Stream<List<Task>> watchUncompletedTasks();
 
   Future<void> createTask(Task task);
 
@@ -53,7 +53,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Stream<List<Task>> watchCompletedTasks() {
-    return _localDatasource.watchCompletedTasks();
+  Stream<List<Task>> watchUncompletedTasks() {
+    return _localDatasource.watchUncompletedTasks();
   }
 }

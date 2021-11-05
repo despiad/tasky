@@ -1,8 +1,6 @@
-import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:tasky/injection_container.dart';
 import 'package:tasky/presentation/task_list/widgets/task_item.dart';
 import 'package:tasky/router/app_router.gr.dart';
@@ -11,29 +9,37 @@ import 'package:tasky/presentation/task_list/cubit/tasks_cubit.dart';
 class TaskListScreen extends StatelessWidget {
   TaskListScreen({Key? key}) : super(key: key);
 
-  final ValueNotifier<bool> _showCompleted = ValueNotifier(false);
+  final ValueNotifier<bool> _showUncompleted = ValueNotifier(false);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl.get<TasksCubit>()
-        ..toggleCompleted(showCompleted: _showCompleted.value),
+      create: (context) => sl.get<TasksCubit>()..watchAll(),
       child: Builder(
         builder: (context) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Tasks'),
+              centerTitle: true,
+              title: ValueListenableBuilder(
+                  valueListenable: _showUncompleted,
+                  builder: (_, __, ___) {
+                    return Text(
+                      _showUncompleted.value
+                          ? 'Uncompleted Tasks'
+                          : 'All Tasks',
+                    );
+                  }),
               actions: [
                 ValueListenableBuilder<bool>(
-                  valueListenable: _showCompleted,
+                  valueListenable: _showUncompleted,
                   builder: (_, __, ___) {
                     return Switch(
-                      value: _showCompleted.value,
+                      value: _showUncompleted.value,
                       onChanged: (value) {
-                        _showCompleted.value = value;
-                        context
-                            .read<TasksCubit>()
-                            .toggleCompleted(showCompleted: value);
+                        _showUncompleted.value = value;
+                        value
+                            ? context.read<TasksCubit>().watchUncompleted()
+                            : context.read<TasksCubit>().watchAll();
                       },
                     );
                   },
@@ -56,7 +62,6 @@ class TaskListScreen extends StatelessWidget {
                   );
                 }
               },
-              buildWhen: (previous, current) => true,
               builder: (context, state) {
                 if (state is TasksEmpty) {
                   return const Center(

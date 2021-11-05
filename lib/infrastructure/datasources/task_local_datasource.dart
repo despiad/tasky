@@ -6,7 +6,7 @@ abstract class TaskLocalDatasource {
 
   Stream<List<Task>> watchAllTasks();
 
-  Stream<List<Task>> watchCompletedTasks();
+  Stream<List<Task>> watchUncompletedTasks();
 
   Future<void> createTask(Task task);
 
@@ -53,7 +53,7 @@ class TaskLocalDataSourceImpl implements TaskLocalDatasource {
   }
 
   @override
-  Stream<List<Task>> watchCompletedTasks() {
+  Stream<List<Task>> watchUncompletedTasks() {
     return _appDatabase.taskDao.watchUncompletedTasks();
   }
 }

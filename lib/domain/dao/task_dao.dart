@@ -20,7 +20,8 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
           ..orderBy([
             (t) => OrderingTerm(
                 expression: t.date.isNull(), mode: OrderingMode.asc),
-            (t) => OrderingTerm(expression: t.isCompleted, mode: OrderingMode.asc),
+            (t) =>
+                OrderingTerm(expression: t.isCompleted, mode: OrderingMode.asc),
             (t) => OrderingTerm(expression: t.date, mode: OrderingMode.asc),
             (t) => OrderingTerm(expression: t.name),
           ]))
