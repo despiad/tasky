@@ -23,4 +23,17 @@ class AppDatabase extends _$AppDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+        onCreate: (Migrator m) {
+          return m.createAll();
+        },
+        onUpgrade: (Migrator m, int from, int to) async {
+          m.deleteTable(
+            dBTasks.actualTableName,
+          );
+          m.createAll();
+        },
+      );
 }
