@@ -84,7 +84,6 @@ class TaskListScreen extends StatelessWidget {
                         },
                         onLongPress: () {
                           context.router.push(EditTask(
-                            taskId: task.id,
                             task: task,
                           ));
                         },

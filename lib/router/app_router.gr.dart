@@ -11,21 +11,16 @@
 import 'package:auto_route/auto_route.dart' as _i2;
 import 'package:flutter/material.dart' as _i7;
 
-import '../domain/models/task.dart' as _i9;
+import '../domain/models/task.dart' as _i8;
 import '../presentation/create_task/create_task_screen.dart' as _i6;
 import '../presentation/home/home_screen.dart' as _i1;
 import '../presentation/settings/settings_screen.dart' as _i3;
 import '../presentation/task_details/task_details_screen.dart' as _i5;
 import '../presentation/task_list/task_list_screen.dart' as _i4;
-import 'guards/edit_screen_guard.dart' as _i8;
 
 class AppRouter extends _i2.RootStackRouter {
-  AppRouter(
-      {_i7.GlobalKey<_i7.NavigatorState>? navigatorKey,
-      required this.editScreenGuard})
+  AppRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
       : super(navigatorKey);
-
-  final _i8.EditScreenGuard editScreenGuard;
 
   @override
   final Map<String, _i2.PageFactory> pagesMap = {
@@ -56,23 +51,21 @@ class AppRouter extends _i2.RootStackRouter {
           child: _i5.TaskDetailsScreen(taskId: args.taskId, key: args.key));
     },
     EditTask.name: (routeData) {
-      final pathParams = routeData.pathParams;
+      final queryParams = routeData.queryParams;
       final args = routeData.argsAs<EditTaskArgs>(
-          orElse: () => EditTaskArgs(taskId: pathParams.optInt('taskId')));
+          orElse: () => EditTaskArgs(task: queryParams.get('task')));
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i6.CreateTaskScreen(
-              taskId: args.taskId, task: args.task, key: args.key),
+          child: _i6.CreateTaskScreen(task: args.task, key: args.key),
           fullscreenDialog: true);
     },
     CreateTask.name: (routeData) {
-      final pathParams = routeData.pathParams;
+      final queryParams = routeData.queryParams;
       final args = routeData.argsAs<CreateTaskArgs>(
-          orElse: () => CreateTaskArgs(taskId: pathParams.optInt('taskId')));
+          orElse: () => CreateTaskArgs(task: queryParams.get('task')));
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i6.CreateTaskScreen(
-              taskId: args.taskId, task: args.task, key: args.key),
+          child: _i6.CreateTaskScreen(task: args.task, key: args.key),
           fullscreenDialog: true);
     }
   };
@@ -89,9 +82,7 @@ class AppRouter extends _i2.RootStackRouter {
                 _i2.RouteConfig(Details.name,
                     path: ':taskId', parent: TasksRouter.name),
                 _i2.RouteConfig(EditTask.name,
-                    path: ':taskId/edit',
-                    parent: TasksRouter.name,
-                    guards: [editScreenGuard]),
+                    path: 'edit', parent: TasksRouter.name),
                 _i2.RouteConfig(CreateTask.name,
                     path: 'create', parent: TasksRouter.name),
                 _i2.RouteConfig('*#redirect',
@@ -164,41 +155,38 @@ class DetailsArgs {
 
 /// generated route for [_i6.CreateTaskScreen]
 class EditTask extends _i2.PageRouteInfo<EditTaskArgs> {
-  EditTask({int? taskId, _i9.Task? task, _i7.Key? key})
+  EditTask({_i8.Task? task, _i7.Key? key})
       : super(name,
-            path: ':taskId/edit',
-            args: EditTaskArgs(taskId: taskId, task: task, key: key),
-            rawPathParams: {'taskId': taskId});
+            path: 'edit',
+            args: EditTaskArgs(task: task, key: key),
+            rawQueryParams: {'task': task});
 
   static const String name = 'EditTask';
 }
 
 class EditTaskArgs {
-  const EditTaskArgs({this.taskId, this.task, this.key});
+  const EditTaskArgs({this.task, this.key});
 
-  final int? taskId;
-
-  final _i9.Task? task;
+  final _i8.Task? task;
 
   final _i7.Key? key;
 }
 
 /// generated route for [_i6.CreateTaskScreen]
 class CreateTask extends _i2.PageRouteInfo<CreateTaskArgs> {
-  CreateTask({int? taskId, _i9.Task? task, _i7.Key? key})
+  CreateTask({_i8.Task? task, _i7.Key? key})
       : super(name,
             path: 'create',
-            args: CreateTaskArgs(taskId: taskId, task: task, key: key));
+            args: CreateTaskArgs(task: task, key: key),
+            rawQueryParams: {'task': task});
 
   static const String name = 'CreateTask';
 }
 
 class CreateTaskArgs {
-  const CreateTaskArgs({this.taskId, this.task, this.key});
+  const CreateTaskArgs({this.task, this.key});
 
-  final int? taskId;
-
-  final _i9.Task? task;
+  final _i8.Task? task;
 
   final _i7.Key? key;
 }

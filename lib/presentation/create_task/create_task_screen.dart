@@ -11,10 +11,8 @@ import 'package:auto_route/auto_route.dart';
 
 class CreateTaskScreen extends StatefulWidget {
   final Task? task;
-  final int? taskId;
 
-  const CreateTaskScreen({@PathParam() this.taskId, this.task, Key? key})
-      : super(key: key);
+  const CreateTaskScreen({@QueryParam() this.task, Key? key}) : super(key: key);
 
   @override
   State<CreateTaskScreen> createState() => _CreateTaskScreenState();

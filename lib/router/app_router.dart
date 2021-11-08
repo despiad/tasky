@@ -26,9 +26,8 @@ import 'package:tasky/router/guards/edit_screen_guard.dart';
             ),
             AutoRoute(
               name: 'editTask',
-              path: ':taskId/edit',
+              path: 'edit',
               page: CreateTaskScreen,
-              guards: [EditScreenGuard],
               fullscreenDialog: true,
             ),
             AutoRoute(
