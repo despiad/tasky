@@ -115,7 +115,8 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                               )
                             : ElevatedButton(
                                 onPressed: () {
-                                  _pickedDate.value = DateTime.now();
+                                  _pickedDate.value = DateTime.now()
+                                      .add(const Duration(minutes: 1));
                                 },
                                 child: const Text('Add reminder'),
                               );
@@ -157,7 +158,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
     final DateTime? date = await showDatePicker(
       context: context,
       initialDate: _pickedDate.value!,
-      firstDate: _pickedDate.value!,
+      firstDate: DateTime.now(),
       lastDate: DateTime(2050),
     );
     if (date == null) {

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/injection_container.dart';
 import 'package:tasky/router/app_router.gr.dart';
-import 'package:tasky/router/guards/edit_screen_guard.dart';
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  final _appRouter = AppRouter();
-
+  final _appRouter = sl.get<AppRouter>();
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(

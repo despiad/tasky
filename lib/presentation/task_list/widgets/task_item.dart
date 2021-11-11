@@ -6,6 +6,7 @@ class TaskItem extends StatelessWidget {
   final Task task;
   final VoidCallback onDelete;
   final VoidCallback onLongPress;
+  final VoidCallback onTap;
   final Function(bool?) onCheckboxChanged;
 
   const TaskItem({
@@ -14,6 +15,7 @@ class TaskItem extends StatelessWidget {
     required this.onDelete,
     required this.onCheckboxChanged,
     required this.onLongPress,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -36,6 +38,7 @@ class TaskItem extends StatelessWidget {
           onChanged: onCheckboxChanged,
           value: task.isCompleted,
         ),
+        onTap: onTap,
         onLongPress: onLongPress,
       ),
     );

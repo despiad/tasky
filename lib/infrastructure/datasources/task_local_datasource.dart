@@ -8,7 +8,7 @@ abstract class TaskLocalDatasource {
 
   Stream<List<Task>> watchUncompletedTasks();
 
-  Future<void> createTask(Task task);
+  Future<int> createTask(Task task);
 
   Future<Task> getTaskById(int id);
 
@@ -23,7 +23,7 @@ class TaskLocalDataSourceImpl implements TaskLocalDatasource {
   TaskLocalDataSourceImpl(this._appDatabase);
 
   @override
-  Future<void> createTask(Task task) async {
+  Future<int> createTask(Task task) async {
     return _appDatabase.taskDao.insertTask(task);
   }
 

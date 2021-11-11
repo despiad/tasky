@@ -8,7 +8,7 @@ abstract class TaskRepository {
 
   Stream<List<Task>> watchUncompletedTasks();
 
-  Future<void> createTask(Task task);
+  Future<int> createTask(Task task);
 
   Future<Task> getTaskById(int id);
 
@@ -23,7 +23,7 @@ class TaskRepositoryImpl implements TaskRepository {
   TaskRepositoryImpl(this._localDatasource);
 
   @override
-  Future<void> createTask(Task task) async {
+  Future<int> createTask(Task task) {
     return _localDatasource.createTask(task);
   }
 
