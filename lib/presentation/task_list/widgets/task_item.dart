@@ -4,7 +4,7 @@ import 'package:tasky/domain/models/task.dart';
 
 class TaskItem extends StatelessWidget {
   final Task task;
-  final VoidCallback onDelete;
+  final Function(BuildContext) onDelete;
   final VoidCallback onLongPress;
   final VoidCallback onTap;
   final Function(bool?) onCheckboxChanged;
@@ -22,15 +22,17 @@ class TaskItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Slidable(
       key: key,
-      actionPane: const SlidableDrawerActionPane(),
-      secondaryActions: [
-        IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red,
-          icon: Icons.delete,
-          onTap: onDelete,
-        ),
-      ],
+      endActionPane: ActionPane(
+        motion: const DrawerMotion(),
+        children: [
+          SlidableAction(
+            label: 'Delete',
+            backgroundColor: Colors.red,
+            icon: Icons.delete,
+            onPressed: onDelete,
+          ),
+        ],
+      ),
       child: ListTile(
         title: Text(task.name),
         subtitle: task.date != null ? Text(task.date.toString()) : null,

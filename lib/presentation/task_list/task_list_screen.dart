@@ -75,7 +75,7 @@ class TaskListScreen extends StatelessWidget {
                       return TaskItem(
                         key: ValueKey<int>(task.id),
                         task: task,
-                        onDelete: () {
+                        onDelete: (_) {
                           context.read<TasksCubit>().deleteTask(task.id);
                         },
                         onCheckboxChanged: (value) {
