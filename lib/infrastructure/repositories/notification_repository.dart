@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tasky/domain/models/task.dart';
+import 'package:tasky/utils/constants.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 abstract class NotificationRepository {
@@ -8,6 +11,10 @@ abstract class NotificationRepository {
   Future<void> createNotificationFromTask(Task task);
 
   Future<void> cancelNotification(int id);
+
+  Future<bool> isGranted();
+
+  Future<bool> changePermission();
 }
 
 class NotificationRepositoryImpl implements NotificationRepository {
@@ -29,15 +36,15 @@ class NotificationRepositoryImpl implements NotificationRepository {
       tz.TZDateTime.from(task.date!, tz.local),
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'TaskyChannelId',
-          'Tasky',
-          channelDescription: 'Tasky notifications settings',
+          notificationChannelId,
+          notificationChannelName,
+          channelDescription: notificationChannelDescription,
         ),
       ),
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
-      payload: '/tasks/${task.id}',
+      payload: '$scheme/tasks/${task.id}',
     );
   }
 
@@ -51,5 +58,15 @@ class NotificationRepositoryImpl implements NotificationRepository {
           badge: true,
           sound: true,
         );
+  }
+
+  @override
+  Future<bool> isGranted() {
+    return Permission.notification.isGranted;
+  }
+
+  @override
+  Future<bool> changePermission() {
+    return openAppSettings();
   }
 }

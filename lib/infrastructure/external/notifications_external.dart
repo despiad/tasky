@@ -1,13 +1,14 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:tasky/router/app_router.gr.dart';
+import 'package:tasky/utils/constants.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationExternal {
-  final AppRouter _appRouter;
-
   NotificationExternal(this._appRouter);
+
+  final AppRouter _appRouter;
 
   Future<FlutterLocalNotificationsPlugin> init() async {
     tz.initializeTimeZones();
@@ -18,9 +19,11 @@ class NotificationExternal {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('notification_icon');
+        AndroidInitializationSettings(notificationIconPathAndroid);
     const IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings();
+        IOSInitializationSettings(
+
+    );
 
     const InitializationSettings initializationSettings =
         InitializationSettings(
@@ -31,7 +34,8 @@ class NotificationExternal {
       initializationSettings,
       onSelectNotification: (payload) {
         if (payload != null) {
-          _appRouter.navigateNamed(payload, includePrefixMatches: true);
+          final link = Uri.parse(payload);
+          _appRouter.navigateNamed(link.path, includePrefixMatches: true);
         }
       },
     );
@@ -40,7 +44,8 @@ class NotificationExternal {
     if (details != null) {
       final payload = details.payload;
       if (payload != null) {
-        _appRouter.pushNamed(payload, includePrefixMatches: true);
+        final link = Uri.parse(payload);
+        _appRouter.navigateNamed(link.path, includePrefixMatches: true);
       }
     }
     return flutterLocalNotificationsPlugin;
