@@ -69,6 +69,12 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                     content: Text(state.message),
                   ),
                 );
+                Future.delayed(
+                  Duration(milliseconds: 500),
+                  () {
+                    context.router.pop();
+                  },
+                );
               }
             },
             child: Form(
@@ -95,28 +101,40 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                       builder: (_, __, ___) {
                         return _pickedDate.value != null
                             ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
+                                  IconButton(
+                                    icon: Icon(Icons.remove),
+                                    padding: EdgeInsets.zero,
+                                    splashRadius: 20,
+                                    visualDensity: VisualDensity.comfortable,
+                                    onPressed: () {
+                                      _pickedDate.value = null;
+                                    },
+                                  ),
                                   Text(
                                     DateFormat.yMd()
                                         .add_jm()
                                         .format(_pickedDate.value!),
                                     style: const TextStyle(fontSize: 16),
                                   ),
-                                  const SizedBox(
-                                    width: 50,
-                                  ),
-                                  Expanded(
-                                    child: ElevatedButton(
-                                      onPressed: _pickDateAndTime,
-                                      child: const Text('Change Date'),
-                                    ),
+                                  ElevatedButton(
+                                    onPressed: _pickDateAndTime,
+                                    child: const Text('Change Date'),
                                   ),
                                 ],
                               )
                             : ElevatedButton(
                                 onPressed: () {
-                                  _pickedDate.value = DateTime.now()
-                                      .add(const Duration(minutes: 1));
+                                  final now = DateTime.now();
+                                  _pickedDate.value = DateTime(
+                                    now.year,
+                                    now.month,
+                                    now.day,
+                                    now.hour,
+                                    now.minute + 1,
+                                  );
                                 },
                                 child: const Text('Add reminder'),
                               );
@@ -128,21 +146,27 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            task != null
-                                ? context.read<CreateTaskCubit>().updateTask(
-                                      task!.copyWith(
-                                        name: _nameController.text,
-                                        date: _pickedDate.value,
-                                      ),
-                                    )
-                                : context.read<CreateTaskCubit>().saveNewTask(
-                                      _nameController.text,
-                                      _pickedDate.value,
-                                    );
+                            if (task != null) {
+                              final updatedTask = task!.copyWith(
+                                name: _nameController.text,
+                                date: _pickedDate.value,
+                              );
+                              context
+                                  .read<CreateTaskCubit>()
+                                  .updateTask(updatedTask);
+                            } else {
+                              context.read<CreateTaskCubit>().saveNewTask(
+                                    _nameController.text,
+                                    _pickedDate.value,
+                                  );
+                            }
                           }
                         },
                         child: const Text('Save'),
                       ),
+                    ),
+                    SizedBox(
+                      height: 50,
                     ),
                   ],
                 ),

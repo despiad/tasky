@@ -15,7 +15,7 @@ class Task {
     return Task(
       id: id ?? this.id,
       name: name ?? this.name,
-      date: date ?? this.date,
+      date: date,
       isCompleted: isCompleted ?? this.isCompleted,
     );
   }
