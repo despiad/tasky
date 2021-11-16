@@ -21,9 +21,7 @@ class NotificationExternal {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings(notificationIconPathAndroid);
     const IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings(
-
-    );
+        IOSInitializationSettings();
 
     const InitializationSettings initializationSettings =
         InitializationSettings(

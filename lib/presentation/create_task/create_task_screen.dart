@@ -70,7 +70,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                   ),
                 );
                 Future.delayed(
-                  Duration(milliseconds: 500),
+                  const Duration(milliseconds: 500),
                   () {
                     context.router.pop();
                   },
@@ -105,7 +105,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconButton(
-                                    icon: Icon(Icons.remove),
+                                    icon: const Icon(Icons.remove),
                                     padding: EdgeInsets.zero,
                                     splashRadius: 20,
                                     visualDensity: VisualDensity.comfortable,
@@ -114,8 +114,8 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                                     },
                                   ),
                                   Text(
-                                    DateFormat.yMd()
-                                        .add_jm()
+                                    DateFormat.yMMMd()
+                                        .add_Hm()
                                         .format(_pickedDate.value!),
                                     style: const TextStyle(fontSize: 16),
                                   ),
@@ -165,7 +165,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                         child: const Text('Save'),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                   ],

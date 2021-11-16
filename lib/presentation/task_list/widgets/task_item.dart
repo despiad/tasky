@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 import 'package:tasky/domain/models/task.dart';
 
 class TaskItem extends StatelessWidget {
@@ -35,7 +36,9 @@ class TaskItem extends StatelessWidget {
       ),
       child: ListTile(
         title: Text(task.name),
-        subtitle: task.date != null ? Text(task.date.toString()) : null,
+        subtitle: task.date != null
+            ? Text(DateFormat.yMMMd().add_Hm().format(task.date!))
+            : null,
         trailing: Checkbox(
           onChanged: onCheckboxChanged,
           value: task.isCompleted,

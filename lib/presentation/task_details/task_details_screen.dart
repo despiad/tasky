@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:tasky/injection_container.dart';
 import 'package:tasky/presentation/task_details/cubit/task_details_cubit.dart';
 import 'package:auto_route/auto_route.dart';
@@ -8,8 +9,10 @@ import 'package:auto_route/auto_route.dart';
 class TaskDetailsScreen extends StatelessWidget {
   final int taskId;
 
-  const TaskDetailsScreen({@PathParam() required this.taskId, Key? key})
-      : super(key: key);
+  const TaskDetailsScreen({
+    @PathParam() required this.taskId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +49,12 @@ class TaskDetailsScreen extends StatelessWidget {
                         task.name,
                         style: const TextStyle(fontSize: 16),
                       ),
-                      Text(
-                        task.date.toString(),
-                        style: const TextStyle(fontSize: 16),
-                      ),
+                      if (task.date != null) ...[
+                        Text(
+                          DateFormat.yMMMd().add_Hm().format(task.date!),
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ]
                     ],
                   ),
                 );

@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/presentation/deeplinks/cubit/deeplink_cubit.dart';
-import 'package:tasky/presentation/notifications/cubit/notification_cubit.dart';
 import 'package:tasky/router/app_router.gr.dart';
 
 class HomeScreen extends StatelessWidget {

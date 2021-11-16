@@ -22,8 +22,10 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
       );
       final id = await _taskRepository.createTask(task);
       if (date != null) {
-        await _notificationRepository
-            .createNotificationFromTask(task.copyWith(id: id));
+        await _notificationRepository.createNotificationFromTask(task.copyWith(
+          id: id,
+          date: date,
+        ));
       }
       emit(CreateTaskSuccess());
     } catch (e) {
@@ -34,12 +36,12 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
   void updateTask(Task task) async {
     emit(CreateTaskLoading());
     try {
-      _taskRepository.updateTask(task);
       if (task.date == null) {
         await _notificationRepository.cancelNotification(task.id);
       } else {
         await _notificationRepository.createNotificationFromTask(task);
       }
+      _taskRepository.updateTask(task);
       emit(CreateTaskSuccess());
     } catch (e) {
       emit(CreateTaskError(e.toString()));

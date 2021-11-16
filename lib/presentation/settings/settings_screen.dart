@@ -46,7 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen>
               },
               builder: (context, state) {
                 return CheckboxListTile(
-                  title: Text('Allow notifications'),
+                  title: const Text('Allow notifications'),
                   value: state,
                   onChanged: (_) async {
                     await context.read<NotificationCubit>().changePermission();
