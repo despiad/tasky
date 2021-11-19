@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/presentation/deeplinks/cubit/deeplink_cubit.dart';
 import 'package:tasky/router/app_router.gr.dart';
+import 'package:tasky/localization/localization_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,12 +16,22 @@ class HomeScreen extends StatelessWidget {
         BlocListener<DeeplinkCubit, DeeplinkState>(
           listener: (context, state) {
             if (state is DeeplinkSuccess) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Successfully got from: ${state.parsedPath}')));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    LocaleKeys.main_screen_deeplink_success.tr(
+                      namedArgs: {'deeplink': state.parsedPath},
+                    ),
+                  ),
+                ),
+              );
             }
             if (state is DeeplinkError) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.errorMessage),
+                ),
+              );
             }
           },
         ),
@@ -33,14 +45,14 @@ class HomeScreen extends StatelessWidget {
           return BottomNavigationBar(
             currentIndex: tabsRouter.activeIndex,
             onTap: tabsRouter.setActiveIndex,
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.task),
-                label: 'Tasks',
+                icon: const Icon(Icons.task),
+                label: LocaleKeys.main_screen_tasks_tab.tr(),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings',
+                icon: const Icon(Icons.settings),
+                label: LocaleKeys.main_screen_settings_tab.tr(),
               ),
             ],
           );

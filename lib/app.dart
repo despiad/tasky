@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/injection_container.dart';
 import 'package:tasky/presentation/deeplinks/cubit/deeplink_cubit.dart';
-import 'package:tasky/presentation/notifications/cubit/notification_cubit.dart';
+import 'package:tasky/presentation/settings/cubit/settings_cubit.dart';
 import 'package:tasky/router/app_router.gr.dart';
 
 class MyApp extends StatelessWidget {
@@ -16,13 +17,24 @@ class MyApp extends StatelessWidget {
         BlocProvider<DeeplinkCubit>(
           create: (context) => sl.get<DeeplinkCubit>()..initLinks(),
         ),
-        BlocProvider<NotificationCubit>(
-          create: (context) => sl.get<NotificationCubit>()..isGranted(),
+        BlocProvider<SettingsCubit>(
+          create: (context) =>
+              sl.get<SettingsCubit>()..isNotificationsGranted(),
         ),
       ],
-      child: MaterialApp.router(
-        routerDelegate: _appRouter.delegate(),
-        routeInformationParser: _appRouter.defaultRouteParser(),
+      child: BlocListener<SettingsCubit, SettingsState>(
+        listener: (context, state) async {
+          await context.setLocale(state.locale);
+        },
+        listenWhen: (previous, current) => previous.locale != current.locale,
+        child: MaterialApp.router(
+          key: ValueKey('${context.locale}'),
+          routerDelegate: _appRouter.delegate(),
+          routeInformationParser: _appRouter.defaultRouteParser(),
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+        ),
       ),
     );
   }

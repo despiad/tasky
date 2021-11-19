@@ -8,6 +8,7 @@ import 'package:tasky/presentation/create_task/cubit/create_task_cubit.dart';
 import 'package:tasky/utils/constants.dart';
 import 'package:tasky/utils/validators.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:tasky/localization/localization_keys.g.dart';
 
 class CreateTaskScreen extends StatefulWidget {
   final Task? task;
@@ -42,7 +43,11 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(task != null ? 'Edit' : 'Create'),
+        title: Text(
+          task != null
+              ? LocaleKeys.update_screen_app_bar.tr()
+              : LocaleKeys.create_screen_app_bar.tr(),
+        ),
       ),
       body: BlocProvider(
         create: (context) => sl.get<CreateTaskCubit>(),
@@ -86,8 +91,10 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                   children: [
                     TextFormField(
                       autofocus: true,
-                      decoration: const InputDecoration(
-                        label: Text('Name'),
+                      decoration: InputDecoration(
+                        label: Text(
+                          LocaleKeys.create_screen_name_field.tr(),
+                        ),
                       ),
                       maxLength: taskNameMaxLength,
                       controller: _nameController,
@@ -121,7 +128,9 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                                   ),
                                   ElevatedButton(
                                     onPressed: _pickDateAndTime,
-                                    child: const Text('Change Date'),
+                                    child: Text(LocaleKeys
+                                        .create_screen_change_date_button
+                                        .tr()),
                                   ),
                                 ],
                               )
@@ -136,7 +145,9 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                                     now.minute + 1,
                                   );
                                 },
-                                child: const Text('Add reminder'),
+                                child: Text(LocaleKeys
+                                    .create_screen_add_reminder_button
+                                    .tr()),
                               );
                       },
                     ),
@@ -162,7 +173,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                             }
                           }
                         },
-                        child: const Text('Save'),
+                        child: Text(LocaleKeys.create_screen_save_button.tr()),
                       ),
                     ),
                     const SizedBox(

@@ -3,14 +3,12 @@ part of 'notification_cubit.dart';
 @immutable
 class NotificationState {
   final String? message;
-  final bool isPermitted;
 
-  const NotificationState(this.message, this.isPermitted);
+  const NotificationState(this.message);
 
-  NotificationState copyWith({String? message, bool? isPermitted}) {
+  NotificationState copyWith({String? message}) {
     return NotificationState(
       message ?? this.message,
-      isPermitted ?? this.isPermitted,
     );
   }
 }

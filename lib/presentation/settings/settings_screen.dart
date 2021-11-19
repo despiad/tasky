@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tasky/presentation/notifications/cubit/notification_cubit.dart';
+import 'package:tasky/localization/localization_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:tasky/presentation/settings/cubit/settings_cubit.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -20,7 +22,7 @@ class _SettingsScreenState extends State<SettingsScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (WidgetsBinding.instance!.lifecycleState == AppLifecycleState.resumed) {
-      context.read<NotificationCubit>().isGranted();
+      context.read<SettingsCubit>().isNotificationsGranted();
     }
   }
 
@@ -28,28 +30,49 @@ class _SettingsScreenState extends State<SettingsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(LocaleKeys.settings_screen_app_bar.tr()),
       ),
-      body: BlocListener<NotificationCubit, NotificationState>(
+      body: BlocListener<SettingsCubit, SettingsState>(
         listener: (context, state) {
           if (state.message != null) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.message!),
-            ));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message!),
+              ),
+            );
           }
         },
+        listenWhen: (previous, current) => previous.message != current.message,
         child: Column(
           children: [
-            BlocSelector<NotificationCubit, NotificationState, bool>(
+            Row(
+              children: context.supportedLocales
+                  .map(
+                    (locale) => Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context.read<SettingsCubit>().changeLocale(locale);
+                          },
+                          child: Text(locale.languageCode),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+            BlocSelector<SettingsCubit, SettingsState, bool>(
               selector: (state) {
-                return state.isPermitted;
+                return state.isNotificationsPermitted;
               },
               builder: (context, state) {
                 return CheckboxListTile(
-                  title: const Text('Allow notifications'),
+                  title:
+                      Text(LocaleKeys.settings_screen_notifications_field.tr()),
                   value: state,
                   onChanged: (_) async {
-                    await context.read<NotificationCubit>().changePermission();
+                    await context.read<SettingsCubit>().changePermission();
                   },
                 );
               },

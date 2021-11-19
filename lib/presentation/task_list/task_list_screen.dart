@@ -5,6 +5,8 @@ import 'package:tasky/injection_container.dart';
 import 'package:tasky/presentation/task_list/widgets/task_item.dart';
 import 'package:tasky/router/app_router.gr.dart';
 import 'package:tasky/presentation/task_list/cubit/tasks_cubit.dart';
+import 'package:tasky/localization/localization_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class TaskListScreen extends StatelessWidget {
   TaskListScreen({Key? key}) : super(key: key);
@@ -25,8 +27,8 @@ class TaskListScreen extends StatelessWidget {
                   builder: (_, __, ___) {
                     return Text(
                       _showUncompleted.value
-                          ? 'Uncompleted Tasks'
-                          : 'All Tasks',
+                          ? LocaleKeys.main_screen_uncompleted_tasks_switch.tr()
+                          : LocaleKeys.main_screen_all_tasks_switch.tr(),
                     );
                   }),
               actions: [
@@ -64,8 +66,8 @@ class TaskListScreen extends StatelessWidget {
               },
               builder: (context, state) {
                 if (state is TasksEmpty) {
-                  return const Center(
-                    child: Text('Empty'),
+                  return Center(
+                    child: Text(LocaleKeys.main_screen_empty.tr()),
                   );
                 } else if (state is TasksLoaded) {
                   return ListView.separated(

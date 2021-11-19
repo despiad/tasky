@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:tasky/injection_container.dart';
 import 'package:tasky/presentation/task_details/cubit/task_details_cubit.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:tasky/localization/localization_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class TaskDetailsScreen extends StatelessWidget {
   final int taskId;
@@ -18,7 +20,7 @@ class TaskDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Details'),
+        title: Text(LocaleKeys.details_screen_app_bar.tr()),
       ),
       body: BlocProvider(
         create: (context) => sl.get<TaskDetailsCubit>()..getTaskById(taskId),
