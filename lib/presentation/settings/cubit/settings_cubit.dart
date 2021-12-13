@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 import 'package:tasky/infrastructure/repositories/notification_repository.dart';
 import 'package:tasky/localization/localization_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';

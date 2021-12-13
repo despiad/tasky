@@ -1,7 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:tasky/injection_container.dart';
 import 'package:tasky/presentation/task_details/cubit/task_details_cubit.dart';
 import 'package:auto_route/auto_route.dart';

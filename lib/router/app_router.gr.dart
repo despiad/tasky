@@ -61,7 +61,7 @@ class AppRouter extends _i2.RootStackRouter {
           fullscreenDialog: true);
     },
     TaskDetailsRoute.name: (routeData) {
-      final pathParams = routeData.pathParams;
+      final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<TaskDetailsRouteArgs>(
           orElse: () =>
               TaskDetailsRouteArgs(taskId: pathParams.getInt('taskId')));
@@ -128,6 +128,11 @@ class TaskListRouteArgs {
   const TaskListRouteArgs({this.key});
 
   final _i7.Key? key;
+
+  @override
+  String toString() {
+    return 'TaskListRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for [_i5.CreateTaskScreen]
@@ -147,6 +152,11 @@ class CreateTaskArgs {
   final _i8.Task? task;
 
   final _i7.Key? key;
+
+  @override
+  String toString() {
+    return 'CreateTaskArgs{task: $task, key: $key}';
+  }
 }
 
 /// generated route for [_i5.CreateTaskScreen]
@@ -166,6 +176,11 @@ class EditTaskArgs {
   final _i8.Task? task;
 
   final _i7.Key? key;
+
+  @override
+  String toString() {
+    return 'EditTaskArgs{task: $task, key: $key}';
+  }
 }
 
 /// generated route for [_i6.TaskDetailsScreen]
@@ -185,4 +200,9 @@ class TaskDetailsRouteArgs {
   final int taskId;
 
   final _i7.Key? key;
+
+  @override
+  String toString() {
+    return 'TaskDetailsRouteArgs{taskId: $taskId, key: $key}';
+  }
 }
