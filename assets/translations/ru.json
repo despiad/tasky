@@ -33,7 +33,9 @@
   },
   "settings_screen": {
     "app_bar": "Настройки",
+    "language_field": "Язык",
     "notifications_field": "Разрешить уведомления",
+    "theme_field": "Включить тёмную тему",
     "locale_change_error": "Произошла ошибка при изменении языка",
     "notification_change_error": "Произошла ошибка при изменении разрешений на уведомления",
     "notification_permitted": "Уведомления разрешены",

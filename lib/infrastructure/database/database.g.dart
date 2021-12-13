@@ -181,27 +181,31 @@ class $DBTasksTable extends DBTasks with TableInfo<$DBTasksTable, DBTask> {
   final String? _alias;
   $DBTasksTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
   late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
       'name', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
   late final GeneratedColumn<DateTime?> date = GeneratedColumn<DateTime?>(
       'date', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   final VerificationMeta _isCompletedMeta =
       const VerificationMeta('isCompleted');
+  @override
   late final GeneratedColumn<bool?> isCompleted = GeneratedColumn<bool?>(
       'is_completed', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const BoolType(),
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (is_completed IN (0, 1))',
       defaultValue: const Constant(false));
@@ -414,22 +418,25 @@ class $DBSettingsTable extends DBSettings
   final String? _alias;
   $DBSettingsTable(this._db, [this._alias]);
   final VerificationMeta _localeMeta = const VerificationMeta('locale');
+  @override
   late final GeneratedColumn<String?> locale = GeneratedColumn<String?>(
       'locale', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _isDarkThemeMeta =
       const VerificationMeta('isDarkTheme');
+  @override
   late final GeneratedColumn<bool?> isDarkTheme = GeneratedColumn<bool?>(
       'is_dark_theme', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const BoolType(),
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (is_dark_theme IN (0, 1))',
       defaultValue: const Constant(false));
   final VerificationMeta _isNotificationsPermittedMeta =
       const VerificationMeta('isNotificationsPermitted');
+  @override
   late final GeneratedColumn<bool?> isNotificationsPermitted =
       GeneratedColumn<bool?>('is_notifications_permitted', aliasedName, false,
-          typeName: 'INTEGER',
+          type: const BoolType(),
           requiredDuringInsert: false,
           defaultConstraints: 'CHECK (is_notifications_permitted IN (0, 1))',
           defaultValue: const Constant(false));

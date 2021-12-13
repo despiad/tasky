@@ -33,7 +33,9 @@
   },
   "settings_screen": {
     "app_bar": "Settings",
+    "language_field": "Language",
     "notifications_field": "Allow notifications",
+    "theme_field": "Enable dark theme",
     "locale_change_error": "An error occurred while changing locale",
     "notification_change_error": "An error occurred while changing notification permissions",
     "notification_permitted": "Notifications are permitted",

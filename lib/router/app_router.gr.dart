@@ -93,33 +93,37 @@ class AppRouter extends _i2.RootStackRouter {
       ];
 }
 
-/// generated route for [_i1.HomeScreen]
+/// generated route for
+/// [_i1.HomeScreen]
 class HomeRoute extends _i2.PageRouteInfo<void> {
   const HomeRoute({List<_i2.PageRouteInfo>? children})
-      : super(name, path: '/', initialChildren: children);
+      : super(HomeRoute.name, path: '/', initialChildren: children);
 
   static const String name = 'HomeRoute';
 }
 
-/// generated route for [_i2.EmptyRouterPage]
+/// generated route for
+/// [_i2.EmptyRouterPage]
 class TasksRouter extends _i2.PageRouteInfo<void> {
   const TasksRouter({List<_i2.PageRouteInfo>? children})
-      : super(name, path: 'tasks', initialChildren: children);
+      : super(TasksRouter.name, path: 'tasks', initialChildren: children);
 
   static const String name = 'TasksRouter';
 }
 
-/// generated route for [_i3.SettingsScreen]
+/// generated route for
+/// [_i3.SettingsScreen]
 class SettingsRouter extends _i2.PageRouteInfo<void> {
-  const SettingsRouter() : super(name, path: 'settings');
+  const SettingsRouter() : super(SettingsRouter.name, path: 'settings');
 
   static const String name = 'SettingsRouter';
 }
 
-/// generated route for [_i4.TaskListScreen]
+/// generated route for
+/// [_i4.TaskListScreen]
 class TaskListRoute extends _i2.PageRouteInfo<TaskListRouteArgs> {
   TaskListRoute({_i7.Key? key})
-      : super(name, path: '', args: TaskListRouteArgs(key: key));
+      : super(TaskListRoute.name, path: '', args: TaskListRouteArgs(key: key));
 
   static const String name = 'TaskListRoute';
 }
@@ -135,10 +139,11 @@ class TaskListRouteArgs {
   }
 }
 
-/// generated route for [_i5.CreateTaskScreen]
+/// generated route for
+/// [_i5.CreateTaskScreen]
 class CreateTask extends _i2.PageRouteInfo<CreateTaskArgs> {
   CreateTask({_i8.Task? task, _i7.Key? key})
-      : super(name,
+      : super(CreateTask.name,
             path: 'create',
             args: CreateTaskArgs(task: task, key: key),
             rawQueryParams: {'task': task});
@@ -159,10 +164,11 @@ class CreateTaskArgs {
   }
 }
 
-/// generated route for [_i5.CreateTaskScreen]
+/// generated route for
+/// [_i5.CreateTaskScreen]
 class EditTask extends _i2.PageRouteInfo<EditTaskArgs> {
   EditTask({_i8.Task? task, _i7.Key? key})
-      : super(name,
+      : super(EditTask.name,
             path: 'edit',
             args: EditTaskArgs(task: task, key: key),
             rawQueryParams: {'task': task});
@@ -183,10 +189,11 @@ class EditTaskArgs {
   }
 }
 
-/// generated route for [_i6.TaskDetailsScreen]
+/// generated route for
+/// [_i6.TaskDetailsScreen]
 class TaskDetailsRoute extends _i2.PageRouteInfo<TaskDetailsRouteArgs> {
   TaskDetailsRoute({required int taskId, _i7.Key? key})
-      : super(name,
+      : super(TaskDetailsRoute.name,
             path: ':taskId',
             args: TaskDetailsRouteArgs(taskId: taskId, key: key),
             rawPathParams: {'taskId': taskId});

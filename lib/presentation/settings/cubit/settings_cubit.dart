@@ -14,6 +14,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           message: null,
           isNotificationsPermitted: false,
           locale: Locale('en'),
+          isDarkTheme: false,
         ));
 
   Future<void> changeLocale(Locale locale) async {
@@ -22,7 +23,6 @@ class SettingsCubit extends Cubit<SettingsState> {
     } catch (e) {
       emit(state.copyWith(
         message: LocaleKeys.settings_screen_locale_change_error.tr(),
-        isNotificationsPermitted: false,
       ));
     }
   }
@@ -34,6 +34,16 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(state.copyWith(
         message: LocaleKeys.settings_screen_notification_change_error.tr(),
         isNotificationsPermitted: false,
+      ));
+    }
+  }
+
+  Future<void> changeTheme(bool isDarkTheme) async {
+    try {
+      emit(state.copyWith(isDarkTheme: isDarkTheme));
+    } catch (e) {
+      emit(state.copyWith(
+        message: LocaleKeys.settings_screen_notification_change_error.tr(),
       ));
     }
   }

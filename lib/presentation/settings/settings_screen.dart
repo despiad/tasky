@@ -44,7 +44,9 @@ class _SettingsScreenState extends State<SettingsScreen>
         },
         listenWhen: (previous, current) => previous.message != current.message,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(LocaleKeys.settings_screen_locale_change_error.tr()),
             Row(
               children: context.supportedLocales
                   .map(
@@ -77,6 +79,21 @@ class _SettingsScreenState extends State<SettingsScreen>
                 );
               },
             ),
+            BlocSelector<SettingsCubit, SettingsState, bool>(
+              selector: (state) {
+                return state.isDarkTheme;
+              },
+              builder: (context, state) {
+                return SwitchListTile(
+                  title:
+                      Text(LocaleKeys.settings_screen_notifications_field.tr()),
+                  onChanged: (value) async {
+                    await context.read<SettingsCubit>().changeTheme(value);
+                  },
+                  value: state,
+                );
+              },
+            )
           ],
         ),
       ),
