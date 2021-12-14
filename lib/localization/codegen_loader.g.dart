@@ -49,7 +49,9 @@ class CodegenLoader extends AssetLoader{
   },
   "settings_screen": {
     "app_bar": "Настройки",
+    "language_field": "Язык",
     "notifications_field": "Разрешить уведомления",
+    "theme_field": "Включить тёмную тему",
     "locale_change_error": "Произошла ошибка при изменении языка",
     "notification_change_error": "Произошла ошибка при изменении разрешений на уведомления",
     "notification_permitted": "Уведомления разрешены",
@@ -86,7 +88,7 @@ static const Map<String,dynamic> en = {
     "empty_name_error": "@:create_screen.empty_name_error",
     "add_reminder_button": "@:create_screen.add_reminder_button",
     "change_date_button": "@:create_screen.change_date_button",
-    "update_button": "Update",
+    "save_button": "Update",
     "notification_cancelled": "@:create_screen.notification_cancelled",
     "notification_cancelled_error": "@:create_screen.notification_cancelled_error",
     "notification_created": "@:create_screen.notification_created",
@@ -94,7 +96,9 @@ static const Map<String,dynamic> en = {
   },
   "settings_screen": {
     "app_bar": "Settings",
+    "language_field": "Language",
     "notifications_field": "Allow notifications",
+    "theme_field": "Enable dark theme",
     "locale_change_error": "An error occurred while changing locale",
     "notification_change_error": "An error occurred while changing notification permissions",
     "notification_permitted": "Notifications are permitted",

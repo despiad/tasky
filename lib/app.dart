@@ -37,7 +37,8 @@ class MyApp extends StatelessWidget {
               supportedLocales: context.supportedLocales,
               locale: context.locale,
               themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-              darkTheme: ThemeData.dark(),
+              darkTheme: ThemeData.dark().copyWith(
+                  elevatedButtonTheme: ThemeData.dark().elevatedButtonTheme),
               theme: ThemeData.light(),
             );
           },

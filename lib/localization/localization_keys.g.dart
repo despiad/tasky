@@ -31,7 +31,9 @@ abstract class  LocaleKeys {
   static const update_screen_notification_created_error = 'update_screen.notification_created_error';
   static const update_screen = 'update_screen';
   static const settings_screen_app_bar = 'settings_screen.app_bar';
+  static const settings_screen_language_field = 'settings_screen.language_field';
   static const settings_screen_notifications_field = 'settings_screen.notifications_field';
+  static const settings_screen_theme_field = 'settings_screen.theme_field';
   static const settings_screen_locale_change_error = 'settings_screen.locale_change_error';
   static const settings_screen_notification_change_error = 'settings_screen.notification_change_error';
   static const settings_screen_notification_permitted = 'settings_screen.notification_permitted';

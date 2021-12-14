@@ -15,20 +15,18 @@ Future<void> main() async {
   );
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  Future.delayed(
-    const Duration(milliseconds: 500),
-    () => runApp(
-      EasyLocalization(
-        supportedLocales: const [
-          Locale('en'),
-          Locale('ru'),
-        ],
-        path: translationsPath,
-        fallbackLocale: const Locale('en', 'US'),
-        useOnlyLangCode: true,
-        child: MyApp(),
-        assetLoader: const CodegenLoader(),
-      ),
+  await sl.sl.allReady();
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [
+        Locale('en'),
+        Locale('ru'),
+      ],
+      path: translationsPath,
+      fallbackLocale: const Locale('en', 'US'),
+      useOnlyLangCode: true,
+      child: MyApp(),
+      assetLoader: const CodegenLoader(),
     ),
   );
 }

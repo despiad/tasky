@@ -25,7 +25,7 @@
     "empty_name_error": "@:create_screen.empty_name_error",
     "add_reminder_button": "@:create_screen.add_reminder_button",
     "change_date_button": "@:create_screen.change_date_button",
-    "update_button": "Update",
+    "save_button": "Update",
     "notification_cancelled": "@:create_screen.notification_cancelled",
     "notification_cancelled_error": "@:create_screen.notification_cancelled_error",
     "notification_created": "@:create_screen.notification_created",

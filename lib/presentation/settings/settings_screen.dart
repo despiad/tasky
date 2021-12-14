@@ -20,6 +20,12 @@ class _SettingsScreenState extends State<SettingsScreen>
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (WidgetsBinding.instance!.lifecycleState == AppLifecycleState.resumed) {
       context.read<SettingsCubit>().isNotificationsGranted();
@@ -46,18 +52,38 @@ class _SettingsScreenState extends State<SettingsScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(LocaleKeys.settings_screen_locale_change_error.tr()),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                LocaleKeys.settings_screen_language_field.tr(),
+                style: const TextStyle(fontSize: 16.0),
+              ),
+            ),
             Row(
               children: context.supportedLocales
                   .map(
                     (locale) => Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: ElevatedButton(
                           onPressed: () {
                             context.read<SettingsCubit>().changeLocale(locale);
                           },
-                          child: Text(locale.languageCode),
+                          child: Text(
+                            locale.languageCode,
+                            style: TextStyle(
+                              color: context.locale == locale
+                                  ? Theme.of(context).colorScheme.onSecondary
+                                  : Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
+                          style: ButtonStyle(
+                            backgroundColor: context.locale == locale
+                                ? MaterialStateProperty.all<Color>(
+                                    Theme.of(context).colorScheme.secondary)
+                                : MaterialStateProperty.all<Color>(
+                                    Theme.of(context).colorScheme.surface),
+                          ),
                         ),
                       ),
                     ),
@@ -85,8 +111,7 @@ class _SettingsScreenState extends State<SettingsScreen>
               },
               builder: (context, state) {
                 return SwitchListTile(
-                  title:
-                      Text(LocaleKeys.settings_screen_notifications_field.tr()),
+                  title: Text(LocaleKeys.settings_screen_theme_field.tr()),
                   onChanged: (value) async {
                     await context.read<SettingsCubit>().changeTheme(value);
                   },

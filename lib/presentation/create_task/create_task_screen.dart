@@ -172,7 +172,11 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                             }
                           }
                         },
-                        child: Text(LocaleKeys.create_screen_save_button.tr()),
+                        child: Text(
+                          task != null
+                              ? LocaleKeys.update_screen_save_button.tr()
+                              : LocaleKeys.create_screen_save_button.tr(),
+                        ),
                       ),
                     ),
                     const SizedBox(

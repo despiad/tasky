@@ -15,24 +15,24 @@ import 'package:tasky/router/app_router.gr.dart';
 
 final sl = GetIt.instance;
 
-void setup() {
+void setup() async {
   // External
   sl.registerSingleton<AppRouter>(AppRouter());
 
   sl.registerSingletonAsync<FlutterLocalNotificationsPlugin>(
-          () async => await NotificationExternal(sl()).init());
-
+      () async => await NotificationExternal(sl()).init());
   // Clients
   sl.registerSingleton<AppDatabase>(AppDatabase());
 
   // DataSources
   sl.registerLazySingleton<TaskLocalDatasource>(
-          () => TaskLocalDataSourceImpl(sl()));
+      () => TaskLocalDataSourceImpl(sl()));
 
   // Repositories
   sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(sl()));
+  await sl.isReady<FlutterLocalNotificationsPlugin>();
   sl.registerLazySingleton<NotificationRepository>(
-          () => NotificationRepositoryImpl(sl()));
+      () => NotificationRepositoryImpl(sl()));
 
   // Blocs/Cubits
   sl.registerFactory<TasksCubit>(() => TasksCubit(sl()));
@@ -41,5 +41,5 @@ void setup() {
   sl.registerFactory<NotificationCubit>(() => NotificationCubit(sl()));
   sl.registerFactory<DeeplinkCubit>(() => DeeplinkCubit(sl()));
 
-      sl.registerLazySingleton(() => SettingsCubit(sl()));
+  sl.registerFactory<SettingsCubit>(() => SettingsCubit(sl()));
 }
