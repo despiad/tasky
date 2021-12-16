@@ -59,46 +59,58 @@ class _SettingsScreenState extends State<SettingsScreen>
                 style: const TextStyle(fontSize: 16.0),
               ),
             ),
-            Row(
-              children: context.supportedLocales
-                  .map(
-                    (locale) => Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context.read<SettingsCubit>().changeLocale(locale);
-                          },
-                          child: Text(
-                            locale.languageCode,
-                            style: TextStyle(
-                              color: context.locale == locale
-                                  ? Theme.of(context).colorScheme.onSecondary
-                                  : Theme.of(context).colorScheme.onSurface,
+            BlocSelector<SettingsCubit, SettingsState, Locale>(
+              selector: (state) {
+                return state.locale;
+              },
+              builder: (context, stateLocale) {
+                return Row(
+                  children: context.supportedLocales
+                      .map(
+                        (locale) => Expanded(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                context
+                                    .read<SettingsCubit>()
+                                    .changeLocale(locale);
+                              },
+                              child: Text(
+                                locale.languageCode,
+                                style: TextStyle(
+                                  color: stateLocale == locale
+                                      ? Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary
+                                      : Theme.of(context).colorScheme.onSurface,
+                                ),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor: stateLocale == locale
+                                    ? MaterialStateProperty.all<Color>(
+                                        Theme.of(context).colorScheme.secondary)
+                                    : MaterialStateProperty.all<Color>(
+                                        Theme.of(context).colorScheme.surface),
+                              ),
                             ),
                           ),
-                          style: ButtonStyle(
-                            backgroundColor: context.locale == locale
-                                ? MaterialStateProperty.all<Color>(
-                                    Theme.of(context).colorScheme.secondary)
-                                : MaterialStateProperty.all<Color>(
-                                    Theme.of(context).colorScheme.surface),
-                          ),
                         ),
-                      ),
-                    ),
-                  )
-                  .toList(),
+                      )
+                      .toList(),
+                );
+              },
             ),
             BlocSelector<SettingsCubit, SettingsState, bool>(
               selector: (state) {
                 return state.isNotificationsPermitted;
               },
-              builder: (context, state) {
+              builder: (context, isNotificationsPermitted) {
                 return CheckboxListTile(
                   title:
                       Text(LocaleKeys.settings_screen_notifications_field.tr()),
-                  value: state,
+                  value: isNotificationsPermitted,
                   onChanged: (_) async {
                     await context.read<SettingsCubit>().changePermission();
                   },
@@ -109,13 +121,13 @@ class _SettingsScreenState extends State<SettingsScreen>
               selector: (state) {
                 return state.isDarkTheme;
               },
-              builder: (context, state) {
+              builder: (context, isDarkTheme) {
                 return SwitchListTile(
                   title: Text(LocaleKeys.settings_screen_theme_field.tr()),
                   onChanged: (value) async {
                     await context.read<SettingsCubit>().changeTheme(value);
                   },
-                  value: state,
+                  value: isDarkTheme,
                 );
               },
             )

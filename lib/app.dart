@@ -18,9 +18,7 @@ class MyApp extends StatelessWidget {
           create: (context) => sl.get<DeeplinkCubit>()..initLinks(),
         ),
         BlocProvider<SettingsCubit>(
-          create: (context) =>
-              sl.get<SettingsCubit>()..isNotificationsGranted(),
-        ),
+            create: (context) => sl.get<SettingsCubit>()..isNotificationsGranted()..watchSettings()),
       ],
       child: BlocListener<SettingsCubit, SettingsState>(
         listener: (context, state) {
@@ -35,7 +33,7 @@ class MyApp extends StatelessWidget {
               routeInformationParser: _appRouter.defaultRouteParser(),
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
-              locale: context.locale,
+              locale: state.locale,
               themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
               darkTheme: ThemeData.dark().copyWith(
                   elevatedButtonTheme: ThemeData.dark().elevatedButtonTheme),

@@ -257,16 +257,20 @@ class $DBTasksTable extends DBTasks with TableInfo<$DBTasksTable, DBTask> {
 }
 
 class DBSetting extends DataClass implements Insertable<DBSetting> {
+  final int id;
   final String locale;
   final bool isDarkTheme;
   final bool isNotificationsPermitted;
   DBSetting(
-      {required this.locale,
+      {required this.id,
+      required this.locale,
       required this.isDarkTheme,
       required this.isNotificationsPermitted});
   factory DBSetting.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return DBSetting(
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       locale: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}locale'])!,
       isDarkTheme: const BoolType()
@@ -278,6 +282,7 @@ class DBSetting extends DataClass implements Insertable<DBSetting> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
     map['locale'] = Variable<String>(locale);
     map['is_dark_theme'] = Variable<bool>(isDarkTheme);
     map['is_notifications_permitted'] =
@@ -287,6 +292,7 @@ class DBSetting extends DataClass implements Insertable<DBSetting> {
 
   DBSettingsCompanion toCompanion(bool nullToAbsent) {
     return DBSettingsCompanion(
+      id: Value(id),
       locale: Value(locale),
       isDarkTheme: Value(isDarkTheme),
       isNotificationsPermitted: Value(isNotificationsPermitted),
@@ -297,6 +303,7 @@ class DBSetting extends DataClass implements Insertable<DBSetting> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DBSetting(
+      id: serializer.fromJson<int>(json['id']),
       locale: serializer.fromJson<String>(json['locale']),
       isDarkTheme: serializer.fromJson<bool>(json['isDarkTheme']),
       isNotificationsPermitted:
@@ -307,6 +314,7 @@ class DBSetting extends DataClass implements Insertable<DBSetting> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
       'locale': serializer.toJson<String>(locale),
       'isDarkTheme': serializer.toJson<bool>(isDarkTheme),
       'isNotificationsPermitted':
@@ -315,10 +323,12 @@ class DBSetting extends DataClass implements Insertable<DBSetting> {
   }
 
   DBSetting copyWith(
-          {String? locale,
+          {int? id,
+          String? locale,
           bool? isDarkTheme,
           bool? isNotificationsPermitted}) =>
       DBSetting(
+        id: id ?? this.id,
         locale: locale ?? this.locale,
         isDarkTheme: isDarkTheme ?? this.isDarkTheme,
         isNotificationsPermitted:
@@ -327,6 +337,7 @@ class DBSetting extends DataClass implements Insertable<DBSetting> {
   @override
   String toString() {
     return (StringBuffer('DBSetting(')
+          ..write('id: $id, ')
           ..write('locale: $locale, ')
           ..write('isDarkTheme: $isDarkTheme, ')
           ..write('isNotificationsPermitted: $isNotificationsPermitted')
@@ -336,36 +347,42 @@ class DBSetting extends DataClass implements Insertable<DBSetting> {
 
   @override
   int get hashCode =>
-      Object.hash(locale, isDarkTheme, isNotificationsPermitted);
+      Object.hash(id, locale, isDarkTheme, isNotificationsPermitted);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DBSetting &&
+          other.id == this.id &&
           other.locale == this.locale &&
           other.isDarkTheme == this.isDarkTheme &&
           other.isNotificationsPermitted == this.isNotificationsPermitted);
 }
 
 class DBSettingsCompanion extends UpdateCompanion<DBSetting> {
+  final Value<int> id;
   final Value<String> locale;
   final Value<bool> isDarkTheme;
   final Value<bool> isNotificationsPermitted;
   const DBSettingsCompanion({
+    this.id = const Value.absent(),
     this.locale = const Value.absent(),
     this.isDarkTheme = const Value.absent(),
     this.isNotificationsPermitted = const Value.absent(),
   });
   DBSettingsCompanion.insert({
-    required String locale,
+    this.id = const Value.absent(),
+    this.locale = const Value.absent(),
     this.isDarkTheme = const Value.absent(),
     this.isNotificationsPermitted = const Value.absent(),
-  }) : locale = Value(locale);
+  });
   static Insertable<DBSetting> custom({
+    Expression<int>? id,
     Expression<String>? locale,
     Expression<bool>? isDarkTheme,
     Expression<bool>? isNotificationsPermitted,
   }) {
     return RawValuesInsertable({
+      if (id != null) 'id': id,
       if (locale != null) 'locale': locale,
       if (isDarkTheme != null) 'is_dark_theme': isDarkTheme,
       if (isNotificationsPermitted != null)
@@ -374,10 +391,12 @@ class DBSettingsCompanion extends UpdateCompanion<DBSetting> {
   }
 
   DBSettingsCompanion copyWith(
-      {Value<String>? locale,
+      {Value<int>? id,
+      Value<String>? locale,
       Value<bool>? isDarkTheme,
       Value<bool>? isNotificationsPermitted}) {
     return DBSettingsCompanion(
+      id: id ?? this.id,
       locale: locale ?? this.locale,
       isDarkTheme: isDarkTheme ?? this.isDarkTheme,
       isNotificationsPermitted:
@@ -388,6 +407,9 @@ class DBSettingsCompanion extends UpdateCompanion<DBSetting> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
     if (locale.present) {
       map['locale'] = Variable<String>(locale.value);
     }
@@ -404,6 +426,7 @@ class DBSettingsCompanion extends UpdateCompanion<DBSetting> {
   @override
   String toString() {
     return (StringBuffer('DBSettingsCompanion(')
+          ..write('id: $id, ')
           ..write('locale: $locale, ')
           ..write('isDarkTheme: $isDarkTheme, ')
           ..write('isNotificationsPermitted: $isNotificationsPermitted')
@@ -417,11 +440,20 @@ class $DBSettingsTable extends DBSettings
   final GeneratedDatabase _db;
   final String? _alias;
   $DBSettingsTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      type: const IntType(),
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
   final VerificationMeta _localeMeta = const VerificationMeta('locale');
   @override
   late final GeneratedColumn<String?> locale = GeneratedColumn<String?>(
       'locale', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
+      type: const StringType(),
+      requiredDuringInsert: false,
+      defaultValue: const Constant('en'));
   final VerificationMeta _isDarkThemeMeta =
       const VerificationMeta('isDarkTheme');
   @override
@@ -442,7 +474,7 @@ class $DBSettingsTable extends DBSettings
           defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns =>
-      [locale, isDarkTheme, isNotificationsPermitted];
+      [id, locale, isDarkTheme, isNotificationsPermitted];
   @override
   String get aliasedName => _alias ?? 'd_b_settings';
   @override
@@ -452,11 +484,12 @@ class $DBSettingsTable extends DBSettings
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
     if (data.containsKey('locale')) {
       context.handle(_localeMeta,
           locale.isAcceptableOrUnknown(data['locale']!, _localeMeta));
-    } else if (isInserting) {
-      context.missing(_localeMeta);
     }
     if (data.containsKey('is_dark_theme')) {
       context.handle(
@@ -475,7 +508,7 @@ class $DBSettingsTable extends DBSettings
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   DBSetting map(Map<String, dynamic> data, {String? tablePrefix}) {
     return DBSetting.fromData(data,
@@ -493,6 +526,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $DBTasksTable dBTasks = $DBTasksTable(this);
   late final $DBSettingsTable dBSettings = $DBSettingsTable(this);
   late final TaskDao taskDao = TaskDao(this as AppDatabase);
+  late final SettingDao settingDao = SettingDao(this as AppDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override

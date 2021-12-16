@@ -41,6 +41,9 @@
     "notification_permitted": "Notifications are permitted",
     "notification_not_permitted": "Notifications are not permitted"
   },
+  "notifications":{
+    "title": "Task {taskId} is about to start"
+  },
   "details_screen": {
     "app_bar": "Details"
   }

@@ -39,6 +39,8 @@ abstract class  LocaleKeys {
   static const settings_screen_notification_permitted = 'settings_screen.notification_permitted';
   static const settings_screen_notification_not_permitted = 'settings_screen.notification_not_permitted';
   static const settings_screen = 'settings_screen';
+  static const notifications_title = 'notifications.title';
+  static const notifications = 'notifications';
   static const details_screen_app_bar = 'details_screen.app_bar';
   static const details_screen = 'details_screen';
 

@@ -10,7 +10,7 @@ part 'tasks_state.dart';
 class TasksCubit extends Cubit<TasksState> {
   final TaskRepository _taskRepository;
 
-   StreamSubscription<List<Task>>? _tasksSubscr;
+  StreamSubscription<List<Task>>? _tasksSubscr;
 
   TasksCubit(this._taskRepository) : super(TasksLoading());
 

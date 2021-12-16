@@ -11,6 +11,7 @@ Settings toSettings(DBSetting dbSetting) {
 
 DBSetting toDBSettings(Settings settings) {
   return DBSetting(
+    id: 1,
     isDarkTheme: settings.isDarkTheme,
     isNotificationsPermitted: settings.isNotificationPermitted,
     locale: settings.locale,

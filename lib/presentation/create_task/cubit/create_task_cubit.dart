@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:tasky/domain/models/task.dart';
-import 'package:tasky/infrastructure/repositories/notification_repository.dart';
+import 'package:tasky/infrastructure/repositories/settings_repository.dart';
 import 'package:tasky/infrastructure/repositories/task_repository.dart';
 
 part 'create_task_state.dart';
 
 class CreateTaskCubit extends Cubit<CreateTaskState> {
   final TaskRepository _taskRepository;
-  final NotificationRepository _notificationRepository;
+  final SettingsRepository _notificationRepository;
 
   CreateTaskCubit(this._taskRepository, this._notificationRepository)
       : super(CreateTaskInitial());

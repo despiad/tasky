@@ -57,6 +57,9 @@ class CodegenLoader extends AssetLoader{
     "notification_permitted": "Уведомления разрешены",
     "notification_not_permitted": "Уведомления не разрешены"
   },
+  "notifications": {
+    "title": "Задача {taskId} скоро начнётся"
+  },
   "details_screen": {
     "app_bar": "Детали"
   }
@@ -103,6 +106,9 @@ static const Map<String,dynamic> en = {
     "notification_change_error": "An error occurred while changing notification permissions",
     "notification_permitted": "Notifications are permitted",
     "notification_not_permitted": "Notifications are not permitted"
+  },
+  "notifications": {
+    "title": "Task {taskId} is about to start"
   },
   "details_screen": {
     "app_bar": "Details"

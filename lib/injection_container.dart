@@ -1,9 +1,10 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tasky/infrastructure/database/database.dart';
+import 'package:tasky/infrastructure/datasources/settings_local_datasource.dart';
 import 'package:tasky/infrastructure/datasources/task_local_datasource.dart';
 import 'package:tasky/infrastructure/external/notifications_external.dart';
-import 'package:tasky/infrastructure/repositories/notification_repository.dart';
+import 'package:tasky/infrastructure/repositories/settings_repository.dart';
 import 'package:tasky/infrastructure/repositories/task_repository.dart';
 import 'package:tasky/presentation/create_task/cubit/create_task_cubit.dart';
 import 'package:tasky/presentation/deeplinks/cubit/deeplink_cubit.dart';
@@ -27,12 +28,14 @@ void setup() async {
   // DataSources
   sl.registerLazySingleton<TaskLocalDatasource>(
       () => TaskLocalDataSourceImpl(sl()));
+  sl.registerLazySingleton<SettingsLocalDatasource>(
+      () => SettingsLocalDatasourceImpl(sl()));
 
   // Repositories
   sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(sl()));
   await sl.isReady<FlutterLocalNotificationsPlugin>();
-  sl.registerLazySingleton<NotificationRepository>(
-      () => NotificationRepositoryImpl(sl()));
+  sl.registerLazySingleton<SettingsRepository>(
+      () => SettingsRepositoryImpl(sl(), sl()));
 
   // Blocs/Cubits
   sl.registerFactory<TasksCubit>(() => TasksCubit(sl()));

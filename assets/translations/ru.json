@@ -41,6 +41,9 @@
     "notification_permitted": "Уведомления разрешены",
     "notification_not_permitted": "Уведомления не разрешены"
   },
+  "notifications":{
+    "title": "Задача {taskId} скоро начнётся"
+  },
   "details_screen": {
     "app_bar": "Детали"
   }

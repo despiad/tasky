@@ -23,7 +23,7 @@ class TaskLocalDataSourceImpl implements TaskLocalDatasource {
   TaskLocalDataSourceImpl(this._appDatabase);
 
   @override
-  Future<int> createTask(Task task) async {
+  Future<int> createTask(Task task) {
     return _appDatabase.taskDao.insertTask(task);
   }
 

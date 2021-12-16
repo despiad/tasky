@@ -4,7 +4,7 @@ import 'package:tasky/domain/models/settings.dart';
 import 'package:tasky/domain/tables/settings_table.dart';
 import 'package:tasky/infrastructure/database/database.dart';
 
-part 'settings_dao.g.dart';
+part 'setting_dao.g.dart';
 
 @DriftAccessor(tables: [DBSettings])
 class SettingDao extends DatabaseAccessor<AppDatabase> with _$SettingDaoMixin {
@@ -12,12 +12,12 @@ class SettingDao extends DatabaseAccessor<AppDatabase> with _$SettingDaoMixin {
 
   SettingDao(this.db) : super(db);
 
-  Stream<Settings> getSettings() {
+  Stream<Settings> watchSettings() {
     return select(dBSettings)
-        .map((p0) => Settings(
-              locale: 'ru',
-              isNotificationPermitted: false,
-              isDarkTheme: false,
+        .map((setting) => Settings(
+              locale: setting.locale,
+              isNotificationPermitted: setting.isNotificationsPermitted,
+              isDarkTheme: setting.isDarkTheme,
             ))
         .watchSingle();
   }

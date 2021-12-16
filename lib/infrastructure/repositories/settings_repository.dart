@@ -2,13 +2,17 @@ import 'dart:io';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:tasky/domain/models/settings.dart';
 import 'package:tasky/domain/models/task.dart';
+import 'package:tasky/infrastructure/datasources/settings_local_datasource.dart';
 import 'package:tasky/utils/constants.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
+import 'package:tasky/localization/localization_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-abstract class NotificationRepository {
+abstract class SettingsRepository {
   Future<bool?>? requestPermissions();
 
   Future<void> createNotificationFromTask(Task task);
@@ -18,12 +22,17 @@ abstract class NotificationRepository {
   Future<bool> isGranted();
 
   Future<bool> changePermission();
+
+  Stream<Settings> watchSettings();
+
+  Future<void> updateSettings(Settings updatedSettings);
 }
 
-class NotificationRepositoryImpl implements NotificationRepository {
+class SettingsRepositoryImpl implements SettingsRepository {
   final FlutterLocalNotificationsPlugin _notificationsPlugin;
-
-  NotificationRepositoryImpl(this._notificationsPlugin);
+  final SettingsLocalDatasource _settingsLocalDatasource;
+  SettingsRepositoryImpl(
+      this._notificationsPlugin, this._settingsLocalDatasource);
 
   @override
   Future<void> cancelNotification(int id) {
@@ -35,7 +44,7 @@ class NotificationRepositoryImpl implements NotificationRepository {
     final imagePath = await _getPathFromAsset('notification_image.jpeg');
     return _notificationsPlugin.zonedSchedule(
       task.id,
-      'Task ${task.id} is about to start',
+      LocaleKeys.notifications_title.tr(namedArgs: {'taskId': '${task.id}'}),
       task.name,
       tz.TZDateTime.from(task.date!, tz.local),
       NotificationDetails(
@@ -90,5 +99,15 @@ class NotificationRepositoryImpl implements NotificationRepository {
         .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
 
     return file.path;
+  }
+
+  @override
+  Stream<Settings> watchSettings() {
+    return _settingsLocalDatasource.watchSettings();
+  }
+
+  @override
+  Future<void> updateSettings(Settings updatedSettings) {
+    return _settingsLocalDatasource.updateSettings(updatedSettings);
   }
 }

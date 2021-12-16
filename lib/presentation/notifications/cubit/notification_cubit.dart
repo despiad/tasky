@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tasky/domain/models/task.dart';
-import 'package:tasky/infrastructure/repositories/notification_repository.dart';
+import 'package:tasky/infrastructure/repositories/settings_repository.dart';
 import 'package:tasky/localization/localization_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 part 'notification_state.dart';
 
 class NotificationCubit extends Cubit<NotificationState> {
-  final NotificationRepository _notificationRepository;
+  final SettingsRepository _notificationRepository;
 
   NotificationCubit(this._notificationRepository)
       : super(const NotificationState(null));
