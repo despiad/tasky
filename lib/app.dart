@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         child: BlocBuilder<SettingsCubit, SettingsState>(
           builder: (context, state) {
             return MaterialApp.router(
-              key: UniqueKey(),
+              key: ValueKey('${context.locale}'),
               routerDelegate: _appRouter.delegate(),
               routeInformationParser: _appRouter.defaultRouteParser(),
               localizationsDelegates: context.localizationDelegates,
