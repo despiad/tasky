@@ -23,14 +23,14 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: BlocListener<SettingsCubit, SettingsState>(
-        listener: (context, state) async {
-          await context.setLocale(state.locale);
+        listener: (context, state) {
+          context.setLocale(state.locale);
         },
         listenWhen: (previous, current) => previous.locale != current.locale,
         child: BlocBuilder<SettingsCubit, SettingsState>(
           builder: (context, state) {
             return MaterialApp.router(
-              key: ValueKey('${context.locale}'),
+              key: UniqueKey(),
               routerDelegate: _appRouter.delegate(),
               routeInformationParser: _appRouter.defaultRouteParser(),
               localizationsDelegates: context.localizationDelegates,
