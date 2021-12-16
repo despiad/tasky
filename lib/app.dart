@@ -18,7 +18,10 @@ class MyApp extends StatelessWidget {
           create: (context) => sl.get<DeeplinkCubit>()..initLinks(),
         ),
         BlocProvider<SettingsCubit>(
-            create: (context) => sl.get<SettingsCubit>()..isNotificationsGranted()..watchSettings()),
+          create: (context) => sl.get<SettingsCubit>()
+            ..watchSettings()
+            ..isNotificationsGranted(),
+        ),
       ],
       child: BlocListener<SettingsCubit, SettingsState>(
         listener: (context, state) {
