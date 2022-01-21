@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tasky/app_config.dart';
 import 'package:tasky/infrastructure/database/database.dart';
 import 'package:tasky/infrastructure/datasources/settings_local_datasource.dart';
 import 'package:tasky/infrastructure/datasources/task_local_datasource.dart';
@@ -16,14 +17,16 @@ import 'package:tasky/router/app_router.gr.dart';
 
 final sl = GetIt.instance;
 
-void setup() async {
+void setupDependencies() async {
   // External
   sl.registerSingleton<AppRouter>(AppRouter());
 
   sl.registerSingletonAsync<FlutterLocalNotificationsPlugin>(
       () async => await NotificationExternal(sl()).init());
+
   // Clients
   sl.registerSingleton<AppDatabase>(AppDatabase());
+  sl.registerSingleton<AppConfig>(AppConfig());
 
   // DataSources
   sl.registerLazySingleton<TaskLocalDatasource>(

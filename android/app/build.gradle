@@ -57,6 +57,21 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "tasky"
+
+    productFlavors {
+        dev {
+            dimension "tasky"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "Tasky (Dev)"
+            versionNameSuffix ".dev"
+        }
+        prod {
+            dimension "tasky"
+            resValue "string", "app_name", "Tasky"
+        }
+    }
 }
 
 flutter {

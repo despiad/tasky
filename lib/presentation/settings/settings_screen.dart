@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tasky/app_config.dart';
+import 'package:tasky/injection_container.dart';
 import 'package:tasky/localization/localization_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:tasky/presentation/settings/cubit/settings_cubit.dart';
@@ -36,7 +38,8 @@ class _SettingsScreenState extends State<SettingsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.settings_screen_app_bar.tr()),
+        title: Text(
+            '${LocaleKeys.settings_screen_app_bar.tr()} ${sl.get<AppConfig>().environment}'),
       ),
       body: BlocListener<SettingsCubit, SettingsState>(
         listener: (context, state) {
