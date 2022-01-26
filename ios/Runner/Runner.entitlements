@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:tasky.example</string>
+		<string>applinks:tasky.despiad</string>
 	</array>
 </dict>
 </plist>
