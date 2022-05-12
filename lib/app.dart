@@ -28,21 +28,16 @@ class MyApp extends StatelessWidget {
           context.setLocale(state.locale);
         },
         listenWhen: (previous, current) => previous.locale != current.locale,
-        child: BlocBuilder<SettingsCubit, SettingsState>(
-          builder: (context, state) {
-            return MaterialApp.router(
-              key: ValueKey('${context.locale}'),
-              routerDelegate: _appRouter.delegate(),
-              routeInformationParser: _appRouter.defaultRouteParser(),
-              localizationsDelegates: context.localizationDelegates,
-              supportedLocales: context.supportedLocales,
-              locale: state.locale,
-              themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-              darkTheme: ThemeData.dark().copyWith(
-                  elevatedButtonTheme: ThemeData.dark().elevatedButtonTheme),
-              theme: ThemeData.light(),
-            );
-          },
+        child: MaterialApp.router(
+          routerDelegate: _appRouter.delegate(),
+          routeInformationParser: _appRouter.defaultRouteParser(),
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          themeMode: ThemeMode.light,
+          darkTheme: ThemeData.dark().copyWith(
+              elevatedButtonTheme: ThemeData.dark().elevatedButtonTheme),
+          theme: ThemeData.light(),
         ),
       ),
     );
