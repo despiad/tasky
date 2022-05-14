@@ -18,18 +18,18 @@ class _SettingsScreenState extends State<SettingsScreen>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (WidgetsBinding.instance!.lifecycleState == AppLifecycleState.resumed) {
+    if (WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed) {
       context.read<SettingsCubit>().isNotificationsGranted();
     }
   }
@@ -80,6 +80,13 @@ class _SettingsScreenState extends State<SettingsScreen>
                                     .read<SettingsCubit>()
                                     .changeLocale(locale);
                               },
+                              style: ButtonStyle(
+                                backgroundColor: stateLocale == locale
+                                    ? MaterialStateProperty.all<Color>(
+                                        Theme.of(context).colorScheme.secondary)
+                                    : MaterialStateProperty.all<Color>(
+                                        Theme.of(context).colorScheme.surface),
+                              ),
                               child: Text(
                                 locale.languageCode,
                                 style: TextStyle(
@@ -89,13 +96,6 @@ class _SettingsScreenState extends State<SettingsScreen>
                                           .onSecondary
                                       : Theme.of(context).colorScheme.onSurface,
                                 ),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor: stateLocale == locale
-                                    ? MaterialStateProperty.all<Color>(
-                                        Theme.of(context).colorScheme.secondary)
-                                    : MaterialStateProperty.all<Color>(
-                                        Theme.of(context).colorScheme.surface),
                               ),
                             ),
                           ),

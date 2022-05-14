@@ -6,7 +6,7 @@ part of 'database.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
+// ignore_for_file: type=lint
 class DBTask extends DataClass implements Insertable<DBTask> {
   final int id;
   final String name;
@@ -177,9 +177,10 @@ class DBTasksCompanion extends UpdateCompanion<DBTask> {
 }
 
 class $DBTasksTable extends DBTasks with TableInfo<$DBTasksTable, DBTask> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DBTasksTable(this._db, [this._alias]);
+  $DBTasksTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -252,7 +253,7 @@ class $DBTasksTable extends DBTasks with TableInfo<$DBTasksTable, DBTask> {
 
   @override
   $DBTasksTable createAlias(String alias) {
-    return $DBTasksTable(_db, alias);
+    return $DBTasksTable(attachedDatabase, alias);
   }
 }
 
@@ -437,9 +438,10 @@ class DBSettingsCompanion extends UpdateCompanion<DBSetting> {
 
 class $DBSettingsTable extends DBSettings
     with TableInfo<$DBSettingsTable, DBSetting> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DBSettingsTable(this._db, [this._alias]);
+  $DBSettingsTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -517,7 +519,7 @@ class $DBSettingsTable extends DBSettings
 
   @override
   $DBSettingsTable createAlias(String alias) {
-    return $DBSettingsTable(_db, alias);
+    return $DBSettingsTable(attachedDatabase, alias);
   }
 }
 
