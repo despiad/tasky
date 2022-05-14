@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/domain/models/settings.dart';
 import 'package:tasky/infrastructure/repositories/settings_repository.dart';
 import 'package:tasky/localization/localization_keys.g.dart';
