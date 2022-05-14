@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/domain/models/task.dart';
 import 'package:tasky/infrastructure/repositories/settings_repository.dart';
 import 'package:tasky/localization/localization_keys.g.dart';

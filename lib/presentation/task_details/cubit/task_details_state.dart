@@ -10,6 +10,7 @@ class TaskDetailsSuccess extends TaskDetailsState {
 
   TaskDetailsSuccess(this.task);
 }
+
 class TaskDetailsError extends TaskDetailsState {
   final String message;
 
